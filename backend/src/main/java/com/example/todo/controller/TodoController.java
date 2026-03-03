@@ -24,6 +24,7 @@ public class TodoController {
     @PostMapping
     public Todo createTodo(@RequestBody Todo todo) {
         Todo newTodo = new Todo(todo.getTitle());
+        newTodo.setDeadline(todo.getDeadline());
         todos.put(newTodo.getId(), newTodo);
         return newTodo;
     }
@@ -36,6 +37,7 @@ public class TodoController {
         }
         existing.setTitle(todo.getTitle());
         existing.setCompleted(todo.isCompleted());
+        existing.setDeadline(todo.getDeadline());
         return ResponseEntity.ok(existing);
     }
 

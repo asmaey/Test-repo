@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,9 +29,24 @@ class TodoControllerTest {
         assertNotNull(created);
         assertEquals("Buy groceries", created.getTitle());
         assertFalse(created.isCompleted());
+        assertNotNull(created.getCreatedAt());
 
         List<Todo> all = controller.getAllTodos();
         assertEquals(1, all.size());
+    }
+
+    @Test
+    void createTodoWithDeadline() {
+        Todo input = new Todo();
+        input.setTitle("Submit report");
+        LocalDateTime deadline = LocalDateTime.of(2026, 12, 31, 23, 59);
+        input.setDeadline(deadline);
+
+        Todo created = controller.createTodo(input);
+        assertNotNull(created);
+        assertEquals("Submit report", created.getTitle());
+        assertNotNull(created.getCreatedAt());
+        assertEquals(deadline, created.getDeadline());
     }
 
     @Test
@@ -42,10 +58,13 @@ class TodoControllerTest {
         Todo update = new Todo();
         update.setTitle("Updated Task");
         update.setCompleted(true);
+        LocalDateTime deadline = LocalDateTime.of(2026, 6, 15, 12, 0);
+        update.setDeadline(deadline);
 
         ResponseEntity<Todo> response = controller.updateTodo(created.getId(), update);
         assertEquals(200, response.getStatusCode().value());
         assertTrue(response.getBody().isCompleted());
+        assertEquals(deadline, response.getBody().getDeadline());
     }
 
     @Test

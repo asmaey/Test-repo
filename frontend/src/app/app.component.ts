@@ -13,6 +13,7 @@ import { TodoService, Todo } from './services/todo.service';
 export class AppComponent implements OnInit {
   todos: Todo[] = [];
   newTitle = '';
+  newDeadline = '';
 
   constructor(private todoService: TodoService) {}
 
@@ -30,10 +31,12 @@ export class AppComponent implements OnInit {
   addTodo(): void {
     const title = this.newTitle.trim();
     if (!title) return;
-    this.todoService.create(title).subscribe({
+    const deadline = this.newDeadline || null;
+    this.todoService.create(title, deadline).subscribe({
       next: todo => {
         this.todos.push(todo);
         this.newTitle = '';
+        this.newDeadline = '';
       },
       error: err => console.error('Failed to create todo', err),
     });

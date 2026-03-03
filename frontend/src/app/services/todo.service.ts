@@ -6,6 +6,8 @@ export interface Todo {
   id: number;
   title: string;
   completed: boolean;
+  createdAt: string;
+  deadline: string | null;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -18,8 +20,8 @@ export class TodoService {
     return this.http.get<Todo[]>(this.apiUrl);
   }
 
-  create(title: string): Observable<Todo> {
-    return this.http.post<Todo>(this.apiUrl, { title });
+  create(title: string, deadline: string | null): Observable<Todo> {
+    return this.http.post<Todo>(this.apiUrl, { title, deadline });
   }
 
   update(todo: Todo): Observable<Todo> {

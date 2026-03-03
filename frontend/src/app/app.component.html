@@ -8,6 +8,11 @@
       placeholder="Add a new task..."
       (keyup.enter)="addTodo()"
     />
+    <input
+      type="datetime-local"
+      [(ngModel)]="newDeadline"
+      class="deadline-input"
+    />
     <button (click)="addTodo()">Add</button>
   </div>
 
@@ -20,7 +25,11 @@
         [checked]="todo.completed"
         (change)="toggleCompleted(todo)"
       />
-      <span>{{ todo.title }}</span>
+      <div class="todo-details">
+        <span>{{ todo.title }}</span>
+        <small class="timestamp" *ngIf="todo.createdAt">Created: {{ todo.createdAt | date:'short' }}</small>
+        <small class="deadline" *ngIf="todo.deadline">Deadline: {{ todo.deadline | date:'short' }}</small>
+      </div>
       <button class="delete" (click)="deleteTodo(todo.id)">✕</button>
     </li>
   </ul>
