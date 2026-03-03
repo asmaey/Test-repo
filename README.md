@@ -13,7 +13,7 @@ A simple full-stack Todo List application built with **Java (Spring Boot)** back
 
 ```
 ├── backend/    # Spring Boot REST API (Java 17, Maven)
-└── frontend/   # Angular 17 SPA
+└── frontend/   # Angular 19 SPA
 ```
 
 ## Getting Started
