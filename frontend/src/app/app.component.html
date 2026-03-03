@@ -1,5 +1,10 @@
-<div class="container">
-  <h1>Todo List</h1>
+<div class="container" [class.dark]="darkMode">
+  <div class="header">
+    <h1>Todo List</h1>
+    <button class="theme-toggle" (click)="toggleDarkMode()" [attr.aria-label]="darkMode ? 'Switch to light mode' : 'Switch to dark mode'">
+      {{ darkMode ? '☀️' : '🌙' }}
+    </button>
+  </div>
 
   <div class="add-todo">
     <input

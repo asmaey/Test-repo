@@ -13,11 +13,18 @@ import { TodoService, Todo } from './services/todo.service';
 export class AppComponent implements OnInit {
   todos: Todo[] = [];
   newTitle = '';
+  darkMode = false;
 
   constructor(private todoService: TodoService) {}
 
   ngOnInit(): void {
+    this.darkMode = localStorage.getItem('darkMode') === 'true';
     this.loadTodos();
+  }
+
+  toggleDarkMode(): void {
+    this.darkMode = !this.darkMode;
+    localStorage.setItem('darkMode', String(this.darkMode));
   }
 
   loadTodos(): void {
