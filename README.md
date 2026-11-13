@@ -62,3 +62,6 @@ cd backend && mvn test
 cd frontend && ng test
 ```
 Practicing stacked pull requests.
+
+## Useful commands
+Use `gh stack view --short` to display the stack.
